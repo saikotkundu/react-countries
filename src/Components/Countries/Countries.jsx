@@ -18,18 +18,15 @@ const Countries = ({ countriesPromises }) => {
   const handleVisistedCoutnries = (country) => {
     setVisitedCountries((visitedCountires) => {
 
-      const isAlreadyVisited = visitedCountires.some((alreadyVisited) => alreadyVisited?.cca3?.cca3 === country?.cca3?.cca3);
+      const countryCode = country?.cca3 || country?.name?.common;
+      const isAlreadyVisited = visitedCountires.some((alreadyVisited) => (alreadyVisited?.cca3 || alreadyVisited?.name?.common) === countryCode);
 
       if (isAlreadyVisited) {
-        return visitedCountires.filter((visitedCountires) => visitedCountires?.cca3?.cca3 !== country?.cca3?.cca3);
+        return visitedCountires.filter((visited) => (visited?.cca3 || visited?.name?.common) !== countryCode);
       }
 
-      // console.log(visitedCountires?.name?.common); 
-
-      return [...visitedCountires, country]
-
+      return [...visitedCountires, country];
     });
-
   };
 
   // handler 2 - minimal version
@@ -51,8 +48,9 @@ const Countries = ({ countriesPromises }) => {
 
 
   const countriesData = use(countriesPromises);
-  const countries = countriesData.countries
-  // console.log(countries);
+  const countries = Array.isArray(countriesData)
+    ? countriesData
+    : countriesData?.countries ?? [];
 
   return (
     <div>
@@ -62,7 +60,7 @@ const Countries = ({ countriesPromises }) => {
       <ol className='display-grid'>
         {
           visitedCountries.map((country) => (
-            <li key={country?.cca3?.cca3 || country?.name?.common}>{country?.name?.common}</li>
+            <li key={country?.cca3 || country?.name?.common}>{country?.name?.common}</li>
           ))
         }
       </ol>
@@ -78,7 +76,7 @@ const Countries = ({ countriesPromises }) => {
       <div className='countries'>
         {
           countries.map(country => <Country
-            key={country.cca3.cca3}
+            key={country?.cca3 || country?.name?.common}
             country={country}
             handleVisistedCoutnries={handleVisistedCoutnries}
             handleVisitedFlag={handleVisitedFlag}

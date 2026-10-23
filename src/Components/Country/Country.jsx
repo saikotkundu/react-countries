@@ -10,10 +10,10 @@ const Country = ({ country, handleVisistedCoutnries, handleVisitedFlag }) => {
 
 
   const countryName = country?.name?.common;
-  const countryPopulation = country?.population?.population
-  const imageSrc = country?.flags?.flags?.png;
-  const imageAlt = country?.flags?.flags?.alt;
-  const countryArea = country?.area?.area;
+  const countryPopulation = country?.population;
+  const imageSrc = country?.flags?.png;
+  const imageAlt = country?.flags?.alt;
+  const countryArea = country?.area;
 
   const marginTop = {
     marginTop: "10px"
