@@ -56,7 +56,7 @@ const Countries = ({ countriesPromises }) => {
 
   return (
     <div>
-      <h1>On the countries...{countries.length}</h1>
+      <h1>Total Countries: {countries.length}</h1>
       <h3>Visited Country Name: {visitedCountries.length}</h3>
 
       <ol className='display-grid'>
